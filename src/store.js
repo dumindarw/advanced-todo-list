@@ -31,13 +31,13 @@ const defaultState = {
 }
 
 class TodosContainer extends Container {
-  constructor (props) {
+  constructor(props) {
     super(props)
 
     this.state = this.readStorage()
   }
 
-  readStorage () {
+  readStorage() {
     if (window && window.localStorage) {
       const state = window.localStorage.getItem('appState')
       if (state) {
@@ -48,14 +48,14 @@ class TodosContainer extends Container {
     return defaultState
   }
 
-  syncStorage () {
+  syncStorage() {
     if (window && window.localStorage) {
       const state = JSON.stringify(this.state)
       window.localStorage.setItem('appState', state)
     }
   }
 
-  getList () {
+  getList() {
     return this.state.list
   }
 
@@ -77,6 +77,24 @@ class TodosContainer extends Container {
     })
 
     this.syncStorage()
+  }
+
+  toggleFilter = async id => {
+
+    this.state = this.readStorage()
+
+    await this.setState(state => {
+      const list = state.list.filter(todos => {
+        if (id === 2)
+          return todos.completed === true;
+        else if (id === 3)
+          return todos.completed === false;
+        else
+          return todos;
+      })
+      return { list }
+    })
+
   }
 
   createTodo = async text => {
