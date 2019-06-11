@@ -6,6 +6,7 @@ import styled from 'styled-components'
 import TodosContainer from './store'
 
 import TodoList from './components/TodoList'
+import FilterList from './components/FilterList'
 import AddTodo from './components/AddTodo'
 
 function App () {
@@ -15,8 +16,10 @@ function App () {
         <Subscribe to={[TodosContainer]}>
           {todos => {
             const list = todos.getList()
+            const filterList = [{id: 1, text: "All"}, {id: 2, text: "Completed"}, {id: 3, text: "Active"}]
             return (
               <TodosWrapper>
+                <FilterList items={filterList} toggleFilter={todos.toggleFilter}/>
                 <AddTodo onAddTodo={todos.createTodo} />
                 <TodoList items={list} toggleComplete={todos.toggleComplete} />
               </TodosWrapper>
