@@ -1,31 +1,35 @@
 import { Container } from 'unstated'
 
 const defaultState = {
-  list: [
+  lists: [
     {
-      id: 1,
-      completed: false,
-      text: 'Read README'
-    },
-    {
-      id: 2,
-      completed: false,
-      text: 'Add one todo'
-    },
-    {
-      id: 3,
-      completed: false,
-      text: 'Add filters'
-    },
-    {
-      id: 4,
-      completed: false,
-      text: 'Add multiple lists'
-    },
-    {
-      id: 5,
-      completed: false,
-      text: 'Optional: add tests'
+      list: [
+        {
+          id: 1,
+          completed: false,
+          text: 'Read README'
+        },
+        {
+          id: 2,
+          completed: false,
+          text: 'Add one todo'
+        },
+        {
+          id: 3,
+          completed: false,
+          text: 'Add filters'
+        },
+        {
+          id: 4,
+          completed: false,
+          text: 'Add multiple lists'
+        },
+        {
+          id: 5,
+          completed: false,
+          text: 'Optional: add tests'
+        }
+      ]
     }
   ]
 }
@@ -51,22 +55,26 @@ class TodosContainer extends Container {
   syncStorage() {
     if (window && window.localStorage) {
       const state = JSON.stringify(this.state)
+      console.log(state);
+      
       window.localStorage.setItem('appState', state)
     }
   }
 
   getList() {
-    return this.state.list
+    return this.state.lists[0].list;
   }
 
   toggleComplete = async id => {
-    const item = this.state.list.find(i => i.id === id)
+    const item = this.state.lists[0].list.find(i => i.id === id)
     const completed = !item.completed
 
     // We're using await on setState here because this comes from unstated package, not React
     // See: https://github.com/jamiebuilds/unstated#introducing-unstated
     await this.setState(state => {
-      const list = state.list.map(item => {
+      const list = state.lists[0].list.map(item => {
+        console.log(item);
+        
         if (item.id !== id) return item
         return {
           ...item,
@@ -84,7 +92,7 @@ class TodosContainer extends Container {
     this.state = this.readStorage()
 
     await this.setState(state => {
-      const list = state.list.filter(todos => {
+      const list = state.lists[0].list.filter(todos => {
         if (id === 2)
           return todos.completed === true;
         else if (id === 3)
@@ -98,14 +106,19 @@ class TodosContainer extends Container {
   }
 
   createTodo = async text => {
+    
+    
     await this.setState(state => {
+      //console.log(state);
       const item = {
         completed: false,
         text,
-        id: state.list.length + 1
+        id: state.lists[0].list.length + 1
       }
 
-      const list = state.list.concat(item)
+      const list = state.lists[0].list.concat(item)
+
+      console.log(list);
       return { list }
     })
 

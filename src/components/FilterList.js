@@ -8,9 +8,9 @@ const FilterList = ({ items, toggleFilter }) => (
   <Wrapper>
     {items.map(item => {
       const  handleSelectChange = async e => {
-        let data = await toggleFilter(item.id);
+        await toggleFilter(item.id);
         
-        console.log(data)
+        //console.log(data)
       }
 
       return <FilterItem key={item.id} {...item} handleSelectChange={handleSelectChange}/>

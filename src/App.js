@@ -15,7 +15,9 @@ function App () {
       <Wrapper>
         <Subscribe to={[TodosContainer]}>
           {todos => {
+         
             const list = todos.getList()
+         
             const filterList = [{id: 1, text: "All"}, {id: 2, text: "Completed"}, {id: 3, text: "Active"}]
             return (
               <TodosWrapper>
