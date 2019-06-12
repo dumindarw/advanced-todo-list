@@ -81,7 +81,11 @@ class TodosContainer extends Container {
           completed
         }
       })
-      return { list }
+      let lists  = {};
+      lists[0] = {list: list};
+      return { lists  }
+      //return { list }
+
     })
 
     this.syncStorage()
@@ -100,16 +104,18 @@ class TodosContainer extends Container {
         else
           return todos;
       })
-      return { list }
+      let lists  = {};
+      lists[0] = {list: list};
+      return { lists  }
+
+      //return { list }
     })
 
   }
 
   createTodo = async text => {
-    
-    
+      
     await this.setState(state => {
-      //console.log(state);
       const item = {
         completed: false,
         text,
@@ -118,21 +124,10 @@ class TodosContainer extends Container {
 
       const list = state.lists[0].list.concat(item)
 
-      console.log(list);
-
       let lists  = {};
-      
-      lists[0] = {...list};
-
-      console.log(lists);
-      
-
-      return  lists ;
-
-      //return { list }
+      lists[0] = {list: list};
+      return { lists  }
     })
-
-    //console.log(this.state);
 
     this.syncStorage()
   }
