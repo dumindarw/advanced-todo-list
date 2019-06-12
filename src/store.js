@@ -119,8 +119,20 @@ class TodosContainer extends Container {
       const list = state.lists[0].list.concat(item)
 
       console.log(list);
-      return { list }
+
+      let lists  = {};
+      
+      lists[0] = {...list};
+
+      console.log(lists);
+      
+
+      return  lists ;
+
+      //return { list }
     })
+
+    //console.log(this.state);
 
     this.syncStorage()
   }
