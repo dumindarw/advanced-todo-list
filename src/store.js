@@ -82,7 +82,9 @@ class TodosContainer extends Container {
         }
       })
       let lists  = {};
+
       lists[listID] = {list: list};
+
       return { lists  }
       //return { list }
 
@@ -105,7 +107,7 @@ class TodosContainer extends Container {
           return todos;
       })
       let lists  = {};
-      lists[listID] = {list: list};
+      lists[0] = {list: list};
       return { lists  }
 
       //return { list }
@@ -122,10 +124,10 @@ class TodosContainer extends Container {
         id: state.lists[listID].list.length + 1
       }
 
-      const list = state.lists[listID].list.concat(item)
+      const list = state.lists[0].list.concat(item)
 
       let lists  = {};
-      lists[listID] = {list: list};
+      lists[0] = {list: list};
       return { lists  }
     })
 
