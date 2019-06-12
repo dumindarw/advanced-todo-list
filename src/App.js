@@ -16,7 +16,7 @@ function App () {
         <Subscribe to={[TodosContainer]}>
           {todos => {
          
-            const list = todos.getList()
+            const list = todos.getList(0)
          
             const filterList = [{id: 1, text: "All"}, {id: 2, text: "Completed"}, {id: 3, text: "Active"}]
             return (

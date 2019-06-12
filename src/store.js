@@ -61,18 +61,18 @@ class TodosContainer extends Container {
     }
   }
 
-  getList() {
-    return this.state.lists[0].list;
+  getList(listID) {
+    return this.state.lists[listID].list;
   }
 
-  toggleComplete = async id => {
-    const item = this.state.lists[0].list.find(i => i.id === id)
+  toggleComplete = async (listID, id) => {
+    const item = this.state.lists[listID].list.find(i => i.id === id)
     const completed = !item.completed
 
     // We're using await on setState here because this comes from unstated package, not React
     // See: https://github.com/jamiebuilds/unstated#introducing-unstated
     await this.setState(state => {
-      const list = state.lists[0].list.map(item => {
+      const list = state.lists[listID].list.map(item => {
         console.log(item);
         
         if (item.id !== id) return item
@@ -81,13 +81,17 @@ class TodosContainer extends Container {
           completed
         }
       })
-      return { list }
+      let lists  = {};
+      lists[listID] = {list: list};
+      return { lists  }
+      //return { list }
+
     })
 
     this.syncStorage()
   }
 
-  toggleFilter = async id => {
+  toggleFilter = async (listID, id) => {
 
     this.state = this.readStorage()
 
@@ -100,39 +104,30 @@ class TodosContainer extends Container {
         else
           return todos;
       })
-      return { list }
-    })
-
-  }
-
-  createTodo = async text => {
-    
-    
-    await this.setState(state => {
-      //console.log(state);
-      const item = {
-        completed: false,
-        text,
-        id: state.lists[0].list.length + 1
-      }
-
-      const list = state.lists[0].list.concat(item)
-
-      console.log(list);
-
       let lists  = {};
-      
-      lists[0] = {...list};
-
-      console.log(lists);
-      
-
-      return  lists ;
+      lists[listID] = {list: list};
+      return { lists  }
 
       //return { list }
     })
 
-    //console.log(this.state);
+  }
+
+  createTodo = async (listID, text) => {
+      
+    await this.setState(state => {
+      const item = {
+        completed: false,
+        text,
+        id: state.lists[listID].list.length + 1
+      }
+
+      const list = state.lists[listID].list.concat(item)
+
+      let lists  = {};
+      lists[listID] = {list: list};
+      return { lists  }
+    })
 
     this.syncStorage()
   }

@@ -10,7 +10,7 @@ const TodoList = ({ items, toggleComplete }) => (
   <Wrapper>
     {items.map(item => {
       const onComplete = e => {
-        toggleComplete(item.id)
+        toggleComplete(0, item.id)
       }
       
       return <TodoItem key={item.id} {...item} onComplete={onComplete} />

@@ -5,7 +5,7 @@ import styled from 'styled-components'
 const AddTodo = ({ onAddTodo }) => {
   const handleKeyPress = e => {
     if (e.key === 'Enter') {
-      onAddTodo(e.target.value)
+      onAddTodo(0, e.target.value)
     }
   }
 
