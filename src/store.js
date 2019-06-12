@@ -1,10 +1,10 @@
-import { Container } from 'unstated'
+import {
+  Container
+} from 'unstated'
 
 const defaultState = {
-  lists: [
-    {
-      list: [
-        {
+  lists: [{
+      list: [{
           id: 1,
           completed: false,
           text: 'Read README'
@@ -56,7 +56,7 @@ class TodosContainer extends Container {
     if (window && window.localStorage) {
       const state = JSON.stringify(this.state)
       console.log(state);
-      
+
       window.localStorage.setItem('appState', state)
     }
   }
@@ -74,18 +74,22 @@ class TodosContainer extends Container {
     await this.setState(state => {
       const list = state.lists[listID].list.map(item => {
         console.log(item);
-        
+
         if (item.id !== id) return item
         return {
           ...item,
           completed
         }
       })
-      let lists  = {};
+      let lists = {};
 
-      lists[listID] = {list: list};
+      lists[listID] = {
+        list: list
+      };
 
-      return { lists  }
+      return {
+        lists
+      }
       //return { list }
 
     })
@@ -106,9 +110,13 @@ class TodosContainer extends Container {
         else
           return todos;
       })
-      let lists  = {};
-      lists[0] = {list: list};
-      return { lists  }
+      let lists = {};
+      lists[0] = {
+        list: list
+      };
+      return {
+        lists
+      }
 
       //return { list }
     })
@@ -116,7 +124,7 @@ class TodosContainer extends Container {
   }
 
   createTodo = async (listID, text) => {
-      
+
     await this.setState(state => {
       const item = {
         completed: false,
@@ -126,12 +134,24 @@ class TodosContainer extends Container {
 
       const list = state.lists[0].list.concat(item)
 
-      let lists  = {};
-      lists[0] = {list: list};
-      return { lists  }
+      let lists = {};
+      lists[0] = {
+        list: list
+      };
+      return {
+        lists
+      }
     })
 
     this.syncStorage()
+  }
+
+  toggleSelectList = async ( text) => {
+
+  }
+
+  getLists(){
+    
   }
 }
 

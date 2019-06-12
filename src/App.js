@@ -8,6 +8,7 @@ import TodosContainer from './store'
 import TodoList from './components/TodoList'
 import FilterList from './components/FilterList'
 import AddTodo from './components/AddTodo'
+import ShowLists from './components/ShowLists'
 
 function App () {
   return (
@@ -16,12 +17,14 @@ function App () {
         <Subscribe to={[TodosContainer]}>
           {todos => {
          
+            const lists = todos.getLists()
             const list = todos.getList(0)
          
             const filterList = [{id: 1, text: "All"}, {id: 2, text: "Completed"}, {id: 3, text: "Active"}]
             return (
               <TodosWrapper>
                 <FilterList items={filterList} toggleFilter={todos.toggleFilter}/>
+                <ShowLists items={lists} toggleSelectList={todos.toggleSelectList}/>
                 <AddTodo onAddTodo={todos.createTodo} />
                 <TodoList items={list} toggleComplete={todos.toggleComplete} />
               </TodosWrapper>
